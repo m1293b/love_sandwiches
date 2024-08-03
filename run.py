@@ -32,7 +32,7 @@ def get_sales_data():
         if validate_data(sales_data):
             print("Data is valid!")
             break
-        return sales_data
+    return sales_data
 
 def validate_data(values):
     """
@@ -64,5 +64,9 @@ def update_sales_worksheet(data):
     print("Sales worksheet updated succesfully.\n")
 
 data = get_sales_data()
-print(data)
-# sales_data = [int(num) for num in data]
+
+sales_data = [int(num) for num in data]
+
+update_sales_worksheet(sales_data)
+
+print(sales_data)

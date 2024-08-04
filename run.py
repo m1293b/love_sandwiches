@@ -72,7 +72,7 @@ def calculate_surplus_data(sales_row):
     - Positive surplus indicates waste
     - Negative surplus indicates extra made when stock was sold out.
     """
-    print(f"-----\nCalculating surplus data...\n")
+    print(f"-----\nCalculating surplus data...\n-----\n")
     stock = SHEET.worksheet("stock").get_all_values()
     stock_row = stock[-1]
     
@@ -97,11 +97,37 @@ def update_worksheet(data, worksheet):
     """
     Updating the correct worksheet with new data
     """
-    print(f"----\nUpdating {worksheet} worksheet...\n")
+    print(f"-----\nUpdating {worksheet} worksheet...\n-----\n")
     
     current_worksheet = SHEET.worksheet(f'{worksheet}')
     current_worksheet.append_row(data)
     print(f"{worksheet.capitalize()} worksheet updated succesfully.\n")
+    
+def get_last_5_entries_sales():
+    """
+    Collects columns of data from sales worksheet, collecting
+    the last 5 entries for each sandwich and returns the data
+    as a list of lists.
+    """
+    
+    print(f"\n-----\nGetting last five entries....\n-----\n")
+    sales = SHEET.worksheet("sales")
+    columns = []
+    
+    for i in range(sales.row_count):
+        column = sales.col_values(i+1)
+        if column == []:
+            break
+        else:
+            columns.append(column[-5:]) 
+    
+    pprint(columns)
+    print(f"\n-----\nLast five entries downloaded....\n-----\n")
+    
+    return columns
+        
+
+# def update_stock_recommendation()
         
 
 def main():
@@ -118,4 +144,6 @@ def main():
     update_worksheet(new_surplus_data, "surplus")
   
 print("Welcome to Love Sandwiches Data Automation")  
-main()
+# main()
+
+sales_columns = get_last_5_entries_sales()

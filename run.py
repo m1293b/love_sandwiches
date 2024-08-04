@@ -161,6 +161,17 @@ def main():
     print(stock_recommendations)
     
     update_worksheet(stock_recommendations, "stock")
+    return stock_recommendations
   
 print("Welcome to Love Sandwiches Data Automation")  
-main()
+
+stock_data = main()
+
+def get_stock_values(data): 
+    products = SHEET.worksheet('stock').row_values(1)
+    
+    return {product: data for product, data in zip(products, data)}
+
+stock_values = get_stock_values(stock_data)
+
+print(stock_values)
